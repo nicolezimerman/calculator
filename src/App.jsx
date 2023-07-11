@@ -5,11 +5,11 @@ const OPERATORS = ["+", "-", "x", "/"];
 import calc from "./helpers/math";
 
 function App() {
-  const [actualValue, setActualValue] = useState(0);
-  const [subTotal, setSubTotal] = useState(0);
+  const [actualValue, setActualValue] = useState("");
+  const [subTotal, setSubTotal] = useState("");
   // o null?
-  const [total, setTotal] = useState(null);
-  const [operator, setOperator] = useState(null);
+  const [total, setTotal] = useState("");
+  const [operator, setOperator] = useState("");
 
   //Create Flag to see what was the last movement?
   const [lastMovement, setLastMovement] = useState(null);
@@ -17,30 +17,43 @@ function App() {
   //useCallback?
   const handleClickNumber = (num) => {
     setActualValue((prevValue) => {
-      if (prevValue === 0) {
+      if (prevValue === "") {
         return num;
       }
-      return Number(`${prevValue}${num}`);
+      return `${prevValue}${num}`;
     });
     setLastMovement("number");
   };
 
+  const handleClickPoint = () => {
+    setActualValue((prevValue) => {
+      if (prevValue === "") {
+        return "0.";
+      } else if (prevValue.includes(".")) {
+        return prevValue;
+      } else {
+        return `${prevValue}.`;
+      }
+    });
+  };
+
   const handleClickOperator = (selectedOperator) => {
-    if (operator !== null) {
+    if (operator !== "") {
       const newSubTotal = calc(subTotal, actualValue, operator);
-      setSubTotal(newSubTotal);
-      setTotal(null);
+      setSubTotal(newSubTotal.toFixed(2));
+      setTotal("");
     } else {
       setSubTotal(actualValue);
     }
     setOperator(selectedOperator);
-    setActualValue(0);
+    setActualValue("");
     setLastMovement("operator");
   };
 
   const handleClickTotal = () => {
     const result = calc(subTotal, actualValue, operator);
-    setTotal(result);
+
+    setTotal(result.toFixed(2));
     setLastMovement("total");
   };
 
@@ -65,6 +78,7 @@ function App() {
               {num}
             </button>
           ))}
+          <button onClick={handleClickPoint}>.</button>
         </section>
         <section className="symbols">
           {OPERATORS.map((operator) => (
