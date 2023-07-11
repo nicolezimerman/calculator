@@ -2,15 +2,15 @@
 
 1. Create a calculator that allows to add, substract, multiply and divide. (OK)
 2. Show the partial total, and on click on "=" show the final total. (OK)
-3. Add the posibility to use float numbers.
-4. Add the posibility to use brackets to create sub calcs.
-5. Add percentage.
+3. Add the posibility to use float numbers. (OK)
 
 ## Iteration 1:
 
-1. Add history off totals.
+1. Add history of totals.
 2. Clear history.
 3. Persist history in local storage.
+4. Add the posibility to use brackets to create sub calcs.
+5. Add percentage.
 
 ## DONE:
 
